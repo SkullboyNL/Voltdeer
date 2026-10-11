@@ -6,7 +6,7 @@ substitutions:
   aecc_ip: "192.168.0.132"     # <-- IP address of the battery's WiFi module (give it a DHCP reservation)
   aecc_port: "8080"
   ems_slot_min_interval: "10"   # s, minimum time between JSON updates of schedule slot 3003 (the battery's fallback command)
-  ems_min_soc: "15"             # %, default of "Discharge Limit" (no discharging at or below this SOC)
+  ems_min_soc: "10"             # %, default of "Discharge Limit" (no discharging at or below this SOC)
   ems_max_soc: "100"            # %, default of "Charge Limit" (no charging at or above this SOC)
   ems_max_charge: "2400"        # W, hardware maximum charge power: upper end of "Max Charge Power" and its default
   ems_max_discharge: "2400"     # W, hardware maximum discharge power: upper end of "Max Discharge Power" and its default
@@ -47,7 +47,7 @@ esp32:
   board: esp32-s3-devkitc-1  ## M5stack Atom S3 lite  
   flash_size: 8MB
   variant: esp32s3
-  cpu_frequency: 240MHz
+  cpu_frequency: 160MHz
   framework:
     type: esp-idf
     version: recommended
@@ -79,7 +79,7 @@ wifi:
   password: !secret wifi_password
   reboot_timeout: 0s
   fast_connect: true
-  power_save_mode: none   # "high" adds latency and dropouts; the ESP is mains-powered anyway
+  power_save_mode: light  # modem sleeps between beacons; less heat, slightly higher latency
 
 ## uncomment if you need a fixed ip address
 #  manual_ip:
